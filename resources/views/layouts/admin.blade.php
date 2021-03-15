@@ -179,7 +179,7 @@
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-md-12">
-								2019 &copy; THE EMPOWERMENT NETWORK
+								{{date('Y')}} &copy; THE EMPOWERMENT NETWORK
 							</div>
 						</div>
 					</div>
