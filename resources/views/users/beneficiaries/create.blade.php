@@ -150,7 +150,7 @@
 								<label>Nationality</label>
 								<select class="form-control" name="nationality" required>
 									@foreach($countries->result as $country)
-									<option>{{ $country->name }}</option>
+									<option {{ $country->name == 'Nigeria' ? 'selected':'' }}>{{ $country->name }}</option>
 									@endforeach
 								</select>
 							</div>

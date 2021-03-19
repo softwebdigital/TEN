@@ -52,7 +52,6 @@
 			</div>
 		</div> 
 	</div>
-	<!-- end col-->
 	<div class="col-lg-8 col-xl-8">
 		<div class="card-box">
 			<ul class="nav nav-pills navtab-bg">
