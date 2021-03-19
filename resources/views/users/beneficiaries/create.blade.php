@@ -43,7 +43,7 @@
 
 @section('content')
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-12">
 		<div class="card">
 			<div class="card-body">
 				<h4 class="header-title">New Beneficiary</h4>
@@ -85,7 +85,7 @@
 								<label>Bank</label>
 								<select class="form-control" name="bank">
 									@foreach($banks->data as $bank)
-									<option>{{ $bank->name }}</option>
+									<option value="{{ $bank->code }}">{{ $bank->name }}</option>
 									@endforeach
 								</select>
 							</div>
@@ -93,13 +93,13 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Account Number</label>
-								<input type="text" class="form-control" name="account_number" required>
+								<input type="number" class="form-control" name="account_number" required>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label>Account Name</label>
-								<input type="text" class="form-control" name="account_name" required>
+								<label>BVN</label>
+								<input type="number" class="form-control" name="bvn" required>
 							</div>
 						</div>
 					</div>
@@ -213,11 +213,7 @@
 					</div>
 				</form>
 			</div>
-			<!-- end card-body -->
 		</div>
-		<!-- end card -->
 	</div>
-	<!-- end col -->
 </div>
-<!-- end row -->
 @endsection

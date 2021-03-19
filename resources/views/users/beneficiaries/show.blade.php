@@ -47,6 +47,7 @@
 					<p class="text-muted mb-1 font-13"><strong>Bank :</strong> <span class="ml-2">{{ $entity->data()->bank }}</span></p>
 					<p class="text-muted mb-1 font-13"><strong>Account Name :</strong> <span class="ml-2">{{ $entity->data()->account_name }}</span></p>
 					<p class="text-muted mb-1 font-13"><strong>Account Number :</strong> <span class="ml-2">{{ $entity->data()->account_number }}</span></p>
+					<p class="text-muted mb-1 font-13"><strong>BVN :</strong> <span class="ml-2">{{ $entity->data()->bvn }}</span></p>
 					<p class="text-muted mb-1 font-13"><strong>Identification :</strong> <span class="ml-2"><img src="{{ asset($entity->data()->identification) }}" width="90"></span></p>
 				@endif
 			</div>

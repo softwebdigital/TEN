@@ -11,10 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Globals as Utils;
 use App\Traits\FileUploadManager;
 use App\Traits\AppResponse;
+use App\Traits\GlobalMethods;
 
 class BeneficiaryController extends Controller
 {
-    use FileUploadManager, AppResponse;
+    use FileUploadManager, AppResponse, GlobalMethods;
 
     public function __construct()
     {
@@ -55,6 +56,7 @@ class BeneficiaryController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
         $data['banks'] = Utils::getBank();
         $data['countries'] = json_decode(file_get_contents("https://api.printful.com/countries"));
         return view('users.beneficiaries.create', $data);
@@ -69,21 +71,33 @@ class BeneficiaryController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        $data = $request->only(['name', 'email', 'phone', 'address']);
-        $data['details'] = $request->except(['_token', '_method', 'passport', 'identification', 'name', 'email', 'phone', 'address']);
-        $data['details']['passport'] = $this->uploadSingle($request->passport, 'Passports');
-        $data['details']['identification'] = $this->uploadSingle($request->identification, 'Identification');
-        $data['details']['level'] = '1';
-        $data['details']['level_payment_status'] = 'pending';
-        $data['details']['level_thrift_status'] = 'pending';
-        $group = $user->groups()->has('beneficiaries', '<', 10)->orDoesntHave('beneficiaries')->first();
-        if(!$group) {
-            $count = $user->groups()->count()+1;
-            $group = $user->groups()->save(new Group(['name'=>"Group {$count}", 'description'=>'Please add description']));
+        $bank = $this->paystackGet("https://api.paystack.co/bank/resolve?account_number=".request()->account_number."&bank_code=".request()->bank);
+        if($bank->status){
+            $banks = $this->paystackGet('https://api.paystack.co/bank')->data;
+            $id = $this->search_banks(request()->bank, $banks);
+
+            $data = $request->only(['name', 'email', 'phone', 'address']);
+            $data['details'] = $request->except(['_token', '_method', 'passport', 'identification', 'name', 'email', 'phone', 'address', 'account_number', 'account_name']);
+            $data['details']['passport'] = $this->uploadSingle($request->passport, 'Passports');
+            $data['details']['identification'] = $this->uploadSingle($request->identification, 'Identification');
+            $data['details']['level'] = '1';
+            $data['details']['level_payment_status'] = 'pending';
+            $data['details']['level_thrift_status'] = 'pending';
+            $data['details']['bank'] = $banks[$id]->name;
+            $data['details']['account_number'] = request()->account_number;
+            $data['details']['account_name'] = $bank->data->account_name;
+            $group = $user->groups()->has('beneficiaries', '<', 10)->orDoesntHave('beneficiaries')->first();
+            if(!$group) {
+                $count = $user->groups()->count()+1;
+                $group = $user->groups()->save(new Group(['name'=>"Group {$count}", 'description'=>'Please add description']));
+            }
+            $group->beneficiaries()->save(new Beneficiary($data));
+            if(request()->wantsJson()) return $this->success("Data saved successfully");
+            return redirect('beneficiaries')->with('message', '<div class="alert alert-success alert-dismissible show fade alert-has-icon"><div class="alert-icon"><i class="far fa-lightbulb"></i></div><div class="alert-body"><button class="close" data-dismiss="alert"><span>&times;</span></button>You have successfully added a new beneficiary.</div></div>');
+            
+        }else {
+            return redirect()->back()->with('error_bottom', "<script>$(function(){ Swal.fire({ position: 'top-end', icon: 'error',title: '".$bank->message."',showConfirmButton: false,timer: 3000});});</script>");
         }
-        $group->beneficiaries()->save(new Beneficiary($data));
-        if(request()->wantsJson()) return $this->success("Data saved successfully");
-        return redirect('beneficiaries')->with('message', '<div class="alert alert-success alert-dismissible show fade alert-has-icon"><div class="alert-icon"><i class="far fa-lightbulb"></i></div><div class="alert-body"><button class="close" data-dismiss="alert"><span>&times;</span></button>You have successfully added a new beneficiary.</div></div>');
     }
 
     /**
