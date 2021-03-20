@@ -245,7 +245,7 @@
 							<!--Read More--> <i class="mdi mdi-arrow-right"></i>
 						</a>
 					</div>
-					<img class="ml-3" src="assets/images/update.svg" width="120" alt="Generic placeholder image">
+					<img class="ml-3" src="{{ asset('assets/images/update.svg') }}" width="120" alt="Generic placeholder image">
 				</div>
 			</div>
 			<!-- end card-body -->
