@@ -41,7 +41,7 @@ class ThriftObserver
                 }elseif($beneficiary->data()->level == '2'){
                     $sum = $beneficiary->thrifts()->sum('amount');
                     if($sum == 50000){
-                        $beneficiary->update(['details->level'=>'complete', 'details->level_thrift_status'=>'pending', 'details->level_payment_status'=>'pending']);
+                        $beneficiary->update(['details->level'=>'3', 'details->level_thrift_status'=>'pending', 'details->level_payment_status'=>'pending']);
                     }
                 }
                 $message = '<b>'.ucwords($thrift->beneficiary->name).'</b> deposit of <b>'.number_format($thrift->amount,2).'</b> has been approved.';
