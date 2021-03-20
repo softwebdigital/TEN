@@ -40,5 +40,6 @@ class AppServiceProvider extends ServiceProvider
         Thrift::observe(ThriftObserver::class);
         Payment::observe(PaymentObserver::class);
         Beneficiary::observe(BeneficiaryObserver::class);
+        $this->loadViewsFrom(__DIR__.'/views/vendors', 'larapex-charts'); 
     }
 }
