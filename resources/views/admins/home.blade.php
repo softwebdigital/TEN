@@ -14,7 +14,7 @@
 <script src="{{ asset('assets/libs/datatables/dataTables.bootstrap4.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ $chart->cdn() }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 {!! $chart->script() !!}
 {!! $chart2->script() !!}
 {!! $chart3->script() !!}
