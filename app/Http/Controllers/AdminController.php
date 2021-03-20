@@ -12,7 +12,7 @@ use Hash;
 use App\Http\Controllers\Globals as Util;
 use Carbon\Carbon;
 use DB;
-use ArielMejiaDev\LarapexCharts\LarapexChart;
+use ArielMejiaDev\LarapexCharts\Facades\LarapexChart;
 
 class AdminController extends Controller
 {
@@ -39,18 +39,18 @@ class AdminController extends Controller
         	$volunteersB[] = User::whereMonth('created_at', '=', Carbon::createFromFormat('!m', $i)->month)->whereYear('created_at', '=', date('Y'))->count();
         	$thriftsB[] = Thrift::where('status', 'approved')->whereMonth('created_at', '=', Carbon::createFromFormat('!m', $i)->month)->whereYear('created_at', '=', date('Y'))->sum('amount');
         }
-		$data['chart'] = (new LarapexChart)->barChart()
+		$data['chart'] = LarapexChart::barChart()
 			->setColors(["#f0643b"])
 			->setHeight(279)
 		    ->addData('Amount', $values)
 		    ->setXAxis($months);
-		$data['chart2'] = (new LarapexChart)->areaChart()
+		$data['chart2'] = LarapexChart::areaChart()
 			->setHeight(480)
 			->setColors(["#f0643b", "#56c2d6"])
 		    ->addData('Beneficiaries', $beneficiariesB)
 		    ->addData('Volunteers', $volunteersB)
 		    ->setXAxis($months);
-		$data['chart3'] = (new LarapexChart)->radarChart()
+		$data['chart3'] = LarapexChart::radarChart()
 		    ->addData('Thrifts', $thriftsB)
 		    ->setHeight(300)
 		    ->setXAxis($months)
