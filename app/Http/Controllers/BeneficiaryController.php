@@ -93,10 +93,10 @@ class BeneficiaryController extends Controller
             }
             $group->beneficiaries()->save(new Beneficiary($data));
             if(request()->wantsJson()) return $this->success("Data saved successfully");
-            return redirect('beneficiaries')->with('message', '<div class="alert alert-success alert-dismissible show fade alert-has-icon"><div class="alert-icon"><i class="far fa-lightbulb"></i></div><div class="alert-body"><button class="close" data-dismiss="alert"><span>&times;</span></button>You have successfully added a new beneficiary.</div></div>');
+            return redirect('beneficiaries')->with('message', '<div class="alert alert-success alert-dismissible show fade alert-has-icon"><div class="alert-icon"><i class="far fa-lightbulb"></i></div><div class="alert-body"><button class="close" data-dismiss="alert"><span>&times;</span></button>You have successfully added a new beneficiary.</div></div>')->withInput();
             
         }else {
-            return redirect()->back()->with('error_bottom', "<script>$(function(){ Swal.fire({ position: 'top-end', icon: 'error',title: '".$bank->message."',showConfirmButton: false,timer: 3000});});</script>");
+            return redirect()->back()->with('error_bottom', "<script>$(function(){ Swal.fire({ position: 'top-end', icon: 'error',title: '".$bank->message."',showConfirmButton: false,timer: 3000});});</script>")->withInput();
         }
     }
 

@@ -54,13 +54,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Name</label>
-								<input type="text" class="form-control" name="name" required="">
+								<input type="text" class="form-control" name="name" required="" value="{{ old('name') }}">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Address</label>
-								<input type="text" class="form-control" name="address" required="">
+								<input type="text" class="form-control" name="address" required="" value="{{ old('address') }}">
 							</div>
 						</div>
 					</div>
@@ -68,13 +68,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Email Address</label>
-								<input type="email" class="form-control" name="email" required>
+								<input type="email" class="form-control" name="email" required value="{{ old('email') }}">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Phone Number</label>
-								<input type="text" class="form-control" name="phone" required>
+								<input type="text" class="form-control" name="phone" required value="{{ old('phone') }}">
 							</div>
 						</div>
 					</div>
@@ -93,13 +93,13 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Account Number</label>
-								<input type="number" class="form-control" name="account_number" required>
+								<input type="number" class="form-control" name="account_number" required value="{{ old('account_number') }}">
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>BVN</label>
-								<input type="number" class="form-control" name="bvn" required>
+								<input type="number" class="form-control" name="bvn" required value="{{ old('bvn') }}">
 							</div>
 						</div>
 					</div>
@@ -120,7 +120,7 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Date of Birth</label>
-								<input type="date" class="form-control" name="date_of_birth" required>
+								<input type="date" class="form-control" name="date_of_birth" required value="{{ old('date_of_birth') }}">
 							</div>
 						</div>
 					</div>
@@ -140,7 +140,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Occupation</label>
-								<input type="text" class="form-control" name="occupation" required>
+								<input type="text" class="form-control" name="occupation" required value="{{ old('occupation') }}">
 							</div>
 						</div>
 					</div>
@@ -158,19 +158,19 @@
 						<div class="col-md-3">
 							<div class="form-group">
 								<label>State of Origin</label>
-								<input type="text" class="form-control" name="state_of_origin" required>
+								<input type="text" class="form-control" name="state_of_origin" required value="{{ old('state_of_origin') }}">
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
 								<label>State of Residence</label>
-								<input type="text" class="form-control" name="state_of_residence" required>
+								<input type="text" class="form-control" name="state_of_residence" required value="{{ old('state_of_residence') }}">
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
 								<label>Local Government</label>
-								<input type="text" class="form-control" name="local_government" required>
+								<input type="text" class="form-control" name="local_government" required value="{{ old('local_government') }}">
 							</div>
 						</div>
 					</div>
