@@ -11,6 +11,7 @@ use App\Traits\FileUploadManager;
 use App\Traits\AppResponse;
 use Notification;
 use App\Notifications\BeneficiaryNotification;
+use DB;
 
 class UserController extends Controller
 {
@@ -182,7 +183,16 @@ class UserController extends Controller
     public function notify(Request $request)
     {
         $user = User::find($request->user);
-        Notification::send($user, new BeneficiaryNotification($request->body, $request->title, explode(' ', $user->name)[0], '<div class="notify-icon bg-success"><i class="mdi mdi-message-alert"></i></div>'));
+        Notification::send($user, new BeneficiaryNotification($request->body, $request->title, explode(' ', $user->name)[0], '<div class="notify-icon bg-success"><i class="mdi mdi-message-alert"></i></div>', true));
         return redirect()->back()->with('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><i class="mdi mdi-check-all mr-2"></i>User Notified!</div>');
+    }
+
+    public function createNotif()
+    {
+        $data['users'] = User::where('is_admin', false)->latest()->get();
+        $data['notifications'] = DB::table('notifications')->where('data->is_admin', true)->latest()->get();
+        $data['read'] = DB::table('notifications')->where('read_at', '!=', null)->where('data->is_admin', true)->latest()->get();
+        $data['unread'] = DB::table('notifications')->where('read_at', null)->where('data->is_admin', true)->latest()->get();
+        return view('admins.notifications', $data);
     }
 }

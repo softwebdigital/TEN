@@ -67,6 +67,7 @@ Route::group(['middleware'=>['auth:web']], function(){
 		Route::get('/pending_payments', 'BeneficiaryController@pendingPayments');
 		Route::get('/beneficiary/pay/{id}', 'BeneficiaryController@payNow');
 		Route::post('send_notification', 'UserController@notify')->name('notify_user');
+		Route::get('/notifications', 'UserController@createNotif');
 	});
 
 });

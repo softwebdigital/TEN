@@ -160,6 +160,13 @@
 								<span> Payments </span>
 								</a>
 							</li>
+							<li class="menu-title mt-2">Supports</li>
+                            <li>
+                                <a href="/admin/notifications">
+                                <i class="la la-briefcase"></i>
+                                <span> Notifications </span>
+                                </a>
+                            </li>
 						</ul>
 					</div>
 					<div class="clearfix"></div>
@@ -187,8 +194,8 @@
 			</div>
 		</div>
 		<script src="{{ asset('assets/js/vendor.min.js') }}"></script>
-		<script src="{{ asset('assets/js/app.min.js') }}"></script>
 		@stack('more-scripts')
+		<script src="{{ asset('assets/js/app.min.js') }}"></script>
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 		@if(session()->has('error_bottom'))
           {!! session()->get('error_bottom') !!}

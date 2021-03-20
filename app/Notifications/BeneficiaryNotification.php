@@ -11,19 +11,20 @@ class BeneficiaryNotification extends Notification
 {
     use Queueable;
 
-    public $message,$title,$name,$icon;
+    public $message,$title,$name,$icon,$isAdmin;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($message,$title,$name,$icon)
+    public function __construct($message,$title,$name,$icon, $isAdmin=false)
     {
         $this->message = $message;
         $this->title = $title;
         $this->name = $name;
         $this->icon = $icon;
+        $this->isAdmin = $isAdmin;
     }
 
     /**
@@ -63,6 +64,7 @@ class BeneficiaryNotification extends Notification
             'body' => $this->message,
             'icon' => $this->icon,
             'title'=>$this->title,
+            'is_admin'=>$this->isAdmin
         ];
     }
 }

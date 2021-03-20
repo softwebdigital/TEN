@@ -1,16 +1,25 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '8cf273d8c62aa4bc522dafc51e75a12eb3c0b993',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
   array (
+    'arielmejiadev/larapex-charts' => 
+    array (
+      'pretty_version' => '2.1.0',
+      'version' => '2.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '7de57e5aed5b0851cf6043376addc838ef5123dd',
+    ),
     'cordoval/hamcrest-php' => 
     array (
       'replaced' => 
@@ -388,12 +397,12 @@
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '8cf273d8c62aa4bc522dafc51e75a12eb3c0b993',
     ),
     'laravel/sanctum' => 
     array (
