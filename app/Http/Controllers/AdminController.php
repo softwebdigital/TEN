@@ -12,7 +12,7 @@ use Hash;
 use App\Http\Controllers\Globals as Util;
 use Carbon\Carbon;
 use DB;
-use LarapexChart;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class AdminController extends Controller
 {
