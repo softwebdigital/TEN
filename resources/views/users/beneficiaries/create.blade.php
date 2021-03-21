@@ -22,6 +22,82 @@
 <script src="{{ asset('assets/libs/datatables/dataTables.keyTable.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables/dataTables.select.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.main').hide();
+		$('.mask').show();
+		var loader = $('.return');
+		var verified = false;
+		$('input[name="bvn"]').on('input', function(){
+			var bvn = $(this).val();
+			if(bvn.length == 11 && verified){
+				$('.main').show();
+				$('.mask').hide();
+			}
+		});
+		$('input[name="account_number"]').on('input', function(){
+			var account = $(this).val();
+			var bank = $('select[name="bank"]').children("option:selected").val();
+			var url = '{{ url("/confirm_bank") }}?account_number='+account+'&'+'bank='+bank;
+			if(account.length == 10){
+				loader.html('<div class="spinner-border m-2" role="status"><span class="sr-only">Loading...</span></div>');
+				$.ajax({
+	                type: "GET",
+	                url: url,
+	                dataType: "json",
+	                success: function(d) {
+	                    if (!d.status) {
+	                        loader.html('<div class="text text-danger">'+d.message+'</div>');
+	                    } else {
+	                    	verified = true;
+	                    	loader.html('<div class="text text-success">'+d.message+'<br>Account Name: '+d.data.account_name+'</div>');
+	                    	var bvn = $('input[name="bvn"]').val();
+							if(bvn.length == 11 && verified){
+								$('.main').show();
+								$('.mask').hide();
+							}
+	                    }
+	                }
+	            });
+			}else {
+				$('.main').show();
+				$('.mask').hide();
+				loader.html('<div class="text text-warning">Please enter valid account number</div>');
+			}
+		});
+
+		$('select[name="bank"]').on('change', function(){
+			var account = $('input[name="account_number"]').val();
+			var bank = $(this).children("option:selected").val();
+			var url = '{{ url("/confirm_bank") }}?account_number='+account+'&'+'bank='+bank;
+			if(account.length == 10){
+				loader.html('<div class="spinner-border m-2" role="status"><span class="sr-only">Loading...</span></div>');
+				$.ajax({
+	                type: "GET",
+	                url: url,
+	                dataType: "json",
+	                success: function(d) {
+	                    if (!d.status) {
+	                        loader.html('<div class="text text-danger">'+d.message+'</div>');
+	                    } else {
+	                    	verified = true;
+	                    	loader.html('<div class="text text-success">'+d.message+'<br>Account Name: '+d.data.account_name+'</div>');
+	                    	var bvn = $('input[name="bvn"]').val();
+							if(bvn.length == 11 && verified){
+								$('.main').show();
+								$('.mask').hide();
+							}
+	                    }
+	                }
+	            });
+			}else {
+				$('.main').show();
+				$('.mask').hide();
+				loader.html('<div class="text text-warning">Please enter valid account number</div>');
+			}
+		});
+	});
+</script>
 @endpush
 
 @section('bread')
@@ -47,7 +123,7 @@
 		<div class="card">
 			<div class="card-body">
 				<h4 class="header-title">New Beneficiary</h4>
-				<form action="{{ route('beneficiaries.store') }}" method="post" enctype="multipart/form-data">
+				<form action="{{ route('beneficiaries.store') }}" method="post" class="dform" enctype="multipart/form-data">
 					@csrf
 					<h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-account-circle mr-1"></i> Personal Info</h5>
 					<div class="row">
@@ -94,6 +170,7 @@
 							<div class="form-group">
 								<label>Account Number</label>
 								<input type="number" class="form-control" name="account_number" required value="{{ old('account_number') }}">
+								<div class="return"></div>
 							</div>
 						</div>
 						<div class="col-md-4">
@@ -209,7 +286,8 @@
 						</div>
 					</div>
 					<div class="text-right">
-						<button type="submit" class="btn btn-success waves-effect waves-light mt-2"><i class="mdi mdi-content-save"></i> Save</button>
+						<button type="button" class="btn btn-success waves-effect waves-light mt-2 disabled mask"><i class="mdi mdi-content-save"></i> Save</button>
+						<button type="submit" class="btn btn-success waves-effect waves-light mt-2 main"><i class="mdi mdi-content-save"></i> Save</button>
 					</div>
 				</form>
 			</div>

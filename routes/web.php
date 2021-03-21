@@ -72,6 +72,8 @@ Route::group(['middleware'=>['auth:web']], function(){
 
 });
 
+Route::get('/confirm_bank', 'BeneficiaryController@confirmBank');
+
 
 Route::get('/logout', function(\Request $request){
 	$request->session()->invalidate();

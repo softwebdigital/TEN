@@ -190,4 +190,12 @@ class BeneficiaryController extends Controller
             return redirect()->back()->with('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><i class="fe-alert-triangle mr-2"></i>Beneficiary already paid for this stage!</div>');
         }
     }
+
+    public function confirmBank(){
+        $bank = $this->paystackGet("https://api.paystack.co/bank/resolve?account_number=".request()->account_number."&bank_code=".request()->bank);
+        if($bank->status){
+            return $this->success($bank->message, $bank->data);
+        }
+        return $this->error($bank->message);
+    }
 }
