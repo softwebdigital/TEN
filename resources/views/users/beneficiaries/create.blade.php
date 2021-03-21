@@ -30,9 +30,14 @@
 		var verified = false;
 		$('input[name="bvn"]').on('input', function(){
 			var bvn = $(this).val();
-			if(bvn.length == 11 && verified){
-				$('.main').show();
-				$('.mask').hide();
+			if(bvn.length == 11){
+				$('.breturn').html('');
+				if(verified){
+					$('.main').show();
+					$('.mask').hide();
+				}
+			}else {
+				$('.breturn').html('<div class="text text-warning">Please enter valid BVN</div>');
 			}
 		});
 		$('input[name="account_number"]').on('input', function(){
@@ -177,6 +182,7 @@
 							<div class="form-group">
 								<label>BVN</label>
 								<input type="number" class="form-control" name="bvn" required value="{{ old('bvn') }}">
+								<div class="breturn"></div>
 							</div>
 						</div>
 					</div>
